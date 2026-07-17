@@ -1,4 +1,4 @@
-# Om [Last Name] — Portfolio
+# Om Kadam — Portfolio
 
 **One action this site exists to produce: a coffee chat with someone who could hire me for a Frontend AI Engineering role.**
 
