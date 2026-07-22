@@ -43,3 +43,12 @@ If any answer is unclear, ask Om rather than proceeding on an assumption. Don't 
 - Don't invent deployment status, metrics, or project details that Om hasn't confirmed.
 - Don't smooth over unresolved claim issues (biotech line, accessibility evidence) with confident-sounding copy — surface them.
 - Don't treat "it looks polished" as sufficient; polish has to be in service of the claim and the one action, not decoration for its own sake.
+
+## Lessons from the AI workflow drill (FE-04)
+
+Rules learned from comparing a vague-prompt build vs. a precise-prompt build of the same form (see WORKFLOW.md for the full diff-based comparison).
+
+1. **Forms must validate required fields and format before submit.** Any form (name, email, etc.) must block submission and show an inline error if a required field is empty or malformed. Do not assume a first AI draft includes this — the vague-prompt round shipped a form with zero validation.
+2. **Never interpolate user input into confirmation/success copy without a fallback.** Any "Thanks, {name}" style message must guard against an empty/falsy value (e.g. `name.trim().split(' ')[0] || 'there'`). The vague-prompt round rendered the literal broken string "Thanks, ." when the name field was empty.
+  3. **Validation errors must be accessible, not just visible.** Every invalid field needs `aria-invalid="true"` and `aria-describedby` pointing to its error message, and error text needs `role="alert"`. A red border alone is not an accessible error state.
+  4. **A form is not done until there is a test file covering empty, invalid, and valid submission paths.** Don't accept "it looks like it works" from a manual click-through — automated tests catch edge cases a visual check misses.
